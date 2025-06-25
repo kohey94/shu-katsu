@@ -1,2 +1,0 @@
-# shu-katsu
-shu-katsu
