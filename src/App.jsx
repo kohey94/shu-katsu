@@ -18,38 +18,36 @@ function App() {
     setStructuredReply(null);
 
     const { today, saturday, sunday } = getNextWeekendDateStrings();
-
     const userPrompt = buildUserPrompt({ today, saturday, sunday, input });
 
     try {
-      const res = await fetch("https://api.openai.com/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
-        },
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          model: "gpt-4o",
           messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt },
-          ],
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content:userPrompt },
+          ]
         }),
       });
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("API Error: ", errorData);
+        setReply("APIエラー: " + (errorData?.error || "不明なエラー"));
+        setLoading(false);
+        return;
+      }
+      
       const data = await res.json();
 
-      if (!res.ok) {
-        console.error("API Error:", data);
-        setReply("APIエラー：" + (data?.error?.message || "不明なエラー"));
-      } else {
-        try {
-          const parsed = JSON.parse(data.choices?.[0]?.message?.content || "{}");
-          setStructuredReply(parsed);
-        } catch (e) {
-          console.error("JSON parse error:", e);
-          setReply("AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content);
-        }
+      try {
+        const parsed = JSON.parse(data.choices?.[0]?.message?.content || "{}");
+        setStructuredReply(parsed);
+      } catch (e) {
+        console.error("JSON parse error:", e);
+         setReply("AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content);
       }
     } catch (error) {
       console.error("通信エラー:", error);
