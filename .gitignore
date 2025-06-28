@@ -31,7 +31,7 @@ dist-ssr
 /apps/backend/node_modules
 
 # global
-.env
+**/.env
 .DS_Store
 
 # backend 側のコンパイル成果物のみ無視
