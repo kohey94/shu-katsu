@@ -23,8 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-.env
-
 # frontend
 /apps/frontend/node_modules
 /apps/frontend/dist
@@ -36,6 +34,6 @@ dist-ssr
 .env
 .DS_Store
 
-# コンパイル結果を無視
-*.js
-*.js.map
+# backend 側のコンパイル成果物のみ無視
+/apps/backend/**/*.js
+/apps/backend/**/*.js.map

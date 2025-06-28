@@ -9,7 +9,15 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+const ENABLED = process.env.FEATURE_CHATGPT_ENABLED !== 'false';
+
 app.post('/chat', async (c) => {
+  if (!ENABLED) {
+    return c.json({
+      error: '現在この機能は一時的に停止中です。',
+    }, 503);
+  }
+  
   try {
     const body = await c.req.json();
     const { messages } = body;
