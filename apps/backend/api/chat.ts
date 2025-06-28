@@ -11,7 +11,7 @@ const openai = new OpenAI({
 
 const ENABLED = process.env.FEATURE_CHATGPT_ENABLED !== 'false';
 
-app.post('/chat', async (c) => {
+app.post('/', async (c) => {
   if (!ENABLED) {
     return c.json({
       error: '現在この機能は一時的に停止中です。',
