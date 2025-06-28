@@ -3,7 +3,7 @@ import 'dotenv/config';
 import { Hono } from 'hono';
 import { OpenAI } from 'openai';
 
-const app = new Hono();
+export const chatApp = new Hono();
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 
 const ENABLED = process.env.FEATURE_CHATGPT_ENABLED !== 'false';
 
-app.post('/', async (c) => {
+chatApp.post('/', async (c) => {
   if (!ENABLED) {
     return c.json({
       error: '現在この機能は一時的に停止中です。',
@@ -40,4 +40,4 @@ app.post('/', async (c) => {
   }
 });
 
-export default app;
+export default chatApp;

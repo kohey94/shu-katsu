@@ -1,9 +1,9 @@
+// apps/backend/server.ts（ローカル開発用）
+import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
-import app from './api/chat';
+import { chatApp } from './api/chat';
 
-serve({
-    fetch: app.fetch,
-    port: 3000,
-});
+const app = new Hono();
+app.route('/chat', chatApp); // ローカルでは /chat でアクセス可能にする
 
-console.log('🚀 Hono server running on http://localhost:3000');
+serve(app);
