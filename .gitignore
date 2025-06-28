@@ -24,3 +24,18 @@ dist-ssr
 *.sw?
 
 .env
+
+# frontend
+/apps/frontend/node_modules
+/apps/frontend/dist
+
+# backend
+/apps/backend/node_modules
+
+# global
+.env
+.DS_Store
+
+# コンパイル結果を無視
+*.js
+*.js.map
