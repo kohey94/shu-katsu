@@ -1,5 +1,5 @@
 // api/chat.ts
-import 'dotenv/config';
+require('dotenv/config');
 import { Hono } from 'hono';
 import { OpenAI } from 'openai';
 
