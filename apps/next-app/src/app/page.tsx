@@ -66,8 +66,9 @@ export default function HomePage() {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1>理想の自分AI</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+      <h1 className="text-4xl font-bold mb-2">Shu-katsu</h1>
+      <h2 className="text-lg text-gray-600 mb-6">- 理想の自分を目指すために -</h2>
       <PromptForm input={input} setInput={setInput} handleSend={handleSend} loading={loading} />
       <AiResponse structuredReply={structuredReply} reply={reply} />
     </div>
