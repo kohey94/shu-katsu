@@ -6,16 +6,9 @@
 npm install
 ```
 
-## frontend rocal debug
+## rocal debug
 
 ```
-cd apps/frontend/
+cd apps/next-app/
 npm run dev
-```
-
-## backend rocal debug
-
-```
-cd apps/backend/
-npx tsx server.ts
 ```
