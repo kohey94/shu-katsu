@@ -1,4 +1,5 @@
 import React from "react";
+import AddToCalendarButton from "./AddToCalendarButton";
 
 function AiResponse({ structuredReply, reply }) {
   if (!structuredReply && !reply) return null;
@@ -38,6 +39,13 @@ function AiResponse({ structuredReply, reply }) {
               <p>
                 <strong>アドバイス：</strong> {structuredReply.first_step.message}
               </p>
+
+              <AddToCalendarButton
+                title="週活ファーストステップ"
+                description={structuredReply.first_step.description}
+                startText={structuredReply.first_step.suggested_datetime}
+                message={structuredReply.first_step.message}
+              />
             </div>
           </div>
         </>
