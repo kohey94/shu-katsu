@@ -25,7 +25,7 @@ function PromptForm({ input, setInput, handleSend, loading }) {
         ) : (
           <>
             <PaperAirplaneIcon className="w-5 h-5 text-white" />
-            Shu-katsuを設計する
+            Shu-katsuをはじめる
           </>
         )}
       </button>

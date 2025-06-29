@@ -35,7 +35,9 @@ function AiResponse({ structuredReply, reply }) {
               <p>
                 <strong>おすすめ日時：</strong> {structuredReply.first_step.suggested_datetime}
               </p>
-              <p>{structuredReply.first_step.message}</p>
+              <p>
+                <strong>アドバイス：</strong> {structuredReply.first_step.message}
+              </p>
             </div>
           </div>
         </>
