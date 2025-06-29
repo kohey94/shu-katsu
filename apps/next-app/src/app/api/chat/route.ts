@@ -1,8 +1,6 @@
-import 'dotenv/config';
-import { Hono } from 'hono';
+// src/app/api/chat/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 import { OpenAI } from 'openai';
-
-export const chatApp = new Hono();
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -10,15 +8,13 @@ const openai = new OpenAI({
 
 const ENABLED = process.env.FEATURE_CHATGPT_ENABLED !== 'false';
 
-chatApp.post('/', async (c) => {
+export async function POST(req: NextRequest) {
   if (!ENABLED) {
-    return c.json({
-      error: '現在この機能は一時的に停止中です。',
-    }, 503);
+    return NextResponse.json({ error: '現在この機能は一時的に停止中です。' }, { status: 503 });
   }
-  
+
   try {
-    const body = await c.req.json();
+    const body = await req.json();
     const { messages } = body;
 
     const completion = await openai.chat.completions.create({
@@ -26,7 +22,7 @@ chatApp.post('/', async (c) => {
       messages,
     });
 
-    return c.json({
+    return NextResponse.json({
       choices: [
         {
           message: completion.choices[0].message,
@@ -34,9 +30,7 @@ chatApp.post('/', async (c) => {
       ],
     });
   } catch (error) {
-    console.error('API error:', error);
-    return c.json({ error: 'Internal server error' }, 500);
+    console.error("API error:", error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
-});
-
-export default chatApp;
+}
