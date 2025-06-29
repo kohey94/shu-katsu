@@ -49,7 +49,8 @@ export default function HomePage() {
       } catch (e) {
         console.error("JSON parse error:", e);
         setReply(
-          "AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content
+          "AIの出力がJSON形式ではありませんでした。再度試してください。\n\n" +
+            data.choices?.[0]?.message?.content
         );
       }
     } catch (error: unknown) {
@@ -58,7 +59,7 @@ export default function HomePage() {
         setReply("通信エラー：" + error.message);
       } else {
         console.error("不明なエラー", error);
-        setReply("通信エラー：不明なエラーが発生しました");
+        setReply("通信エラー：不明なエラーが発生しました。");
       }
     }
 
