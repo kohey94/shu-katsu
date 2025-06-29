@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
-import PromptForm from "./components/PromptForm"
+import PromptForm from "./components/PromptForm";
 import AiResponse from "./components/AiResponse";
 import { getNextWeekendDateStrings } from "./utils/dateHelper";
 import { systemPrompt } from "./prompts/idealSelfSystemPrompt";
@@ -10,7 +10,7 @@ import { buildUserPrompt } from "./prompts/idealSelfUserPrompt";
 export default function HomePage() {
   const [input, setInput] = useState("");
   const [reply, setReply] = useState("");
-  const [structuredReply, setStructuredReply] = useState<any>(null);
+  const [structuredReply, setStructuredReply] = useState<unknown>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSend = async () => {
@@ -49,13 +49,17 @@ export default function HomePage() {
       } catch (e) {
         console.error("JSON parse error:", e);
         setReply(
-          "AIの出力がJSON形式ではありませんでした。\n\n" +
-            data.choices?.[0]?.message?.content
+          "AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content
         );
       }
-    } catch (error: any) {
-      console.error("通信エラー:", error);
-      setReply("通信エラー：" + error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("通信エラー:", error);
+        setReply("通信エラー：" + error.message);
+      } else {
+        console.error("不明なエラー", error);
+        setReply("通信エラー：不明なエラーが発生しました");
+      }
     }
 
     setLoading(false);
@@ -64,12 +68,7 @@ export default function HomePage() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>理想の自分AI</h1>
-      <PromptForm
-        input={input}
-        setInput={setInput}
-        handleSend={handleSend}
-        loading={loading}
-      />
+      <PromptForm input={input} setInput={setInput} handleSend={handleSend} loading={loading} />
       <AiResponse structuredReply={structuredReply} reply={reply} />
     </div>
   );

@@ -43,8 +43,12 @@ function AiResponse({ structuredReply, reply }) {
           </ul>
 
           <h4>3. 今週のファーストステップ提案</h4>
-          <p><strong>内容：</strong> {structuredReply.first_step.description}</p>
-          <p><strong>おすすめ日時：</strong> {structuredReply.first_step.suggested_datetime}</p>
+          <p>
+            <strong>内容：</strong> {structuredReply.first_step.description}
+          </p>
+          <p>
+            <strong>おすすめ日時：</strong> {structuredReply.first_step.suggested_datetime}
+          </p>
           <p>{structuredReply.first_step.message}</p>
         </>
       ) : (

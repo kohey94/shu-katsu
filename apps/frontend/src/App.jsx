@@ -21,14 +21,14 @@ function App() {
     const userPrompt = buildUserPrompt({ today, saturday, sunday, input });
 
     try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content:userPrompt },
-          ]
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
         }),
       });
 
@@ -39,7 +39,7 @@ function App() {
         setLoading(false);
         return;
       }
-      
+
       const data = await res.json();
 
       try {
@@ -47,7 +47,9 @@ function App() {
         setStructuredReply(parsed);
       } catch (e) {
         console.error("JSON parse error:", e);
-         setReply("AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content);
+        setReply(
+          "AIの出力がJSON形式ではありませんでした。\n\n" + data.choices?.[0]?.message?.content
+        );
       }
     } catch (error) {
       console.error("通信エラー:", error);
@@ -60,12 +62,7 @@ function App() {
   return (
     <div style={{ padding: "2rem" }}>
       <h1>理想の自分AI</h1>
-      <PromptForm
-        input={input}
-        setInput={setInput}
-        handleSend={handleSend}
-        loading={loading}
-      />
+      <PromptForm input={input} setInput={setInput} handleSend={handleSend} loading={loading} />
       <AiResponse structuredReply={structuredReply} reply={reply} />
     </div>
   );
