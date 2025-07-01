@@ -11,7 +11,7 @@ function AiResponse({ structuredReply, reply }) {
         <>
           <div className="w-full max-w-3xl space-y-6 mt-10">
             <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-md">
-              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-2">あなたの理想像</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-2">あなたの理想像</h2>{" "}
               <p className="text-gray-700">{structuredReply.summary}</p>
             </div>
 
@@ -47,6 +47,21 @@ function AiResponse({ structuredReply, reply }) {
                 startText={structuredReply.first_step.suggested_datetime}
                 message={structuredReply.first_step.message}
               />
+            </div>
+            <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-md">
+              <h2 className="text-xl font-bold text-gray-800 mb-4 border-b pb-2">
+                こんなサービスを使うのもおすすめ！
+              </h2>
+              <p style={{ fontSize: "0.8rem", color: "#666" }}>
+                ※以下にはプロモーションが含まれています。
+              </p>
+              <ul>
+                <li>
+                  <a href="https://affiliate-link.example.com" target="_blank">
+                    ▶︎ hoge
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
         </>
